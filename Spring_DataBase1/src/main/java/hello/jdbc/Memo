@@ -1,0 +1,27 @@
+* JDBC(Java Database Connectivity) 표준 인터페이스
+    java.sql.Connection - 연결
+    java.sql.Statement - SQL을 담은 내용
+    java.sql.ResultSet - SQL 요청 응답
+
+    애플리케이션이 RDB에 접근하는 기술의 종류가 많다 -> 각각의 DB가 JDBC를 구현하도록 하여 유저는 JDBC만 사용하면 된다.
+    이 JDBC 인터페이스를 각각의 DB 벤더에서 자신의 DB에 맞도록 구현해서 라이브러리로 제공하는데, 이것을 JDBC 드라이버라 한다.
+
+    한계: 페이징 SQL은 각각의 데이터 베이스마다 사용법이 다르다. JDBC 코드는 변경하지 않아도 되지만 SQL은 해당 데이터베이스에 맞도록 변경해야 한다.
+
+* DataSource:커넥션을 획득하는 방법을 추상화하는 인터페이스(DriverManager를 통해 커넥션을 획득하다가 커넥션풀로 변경하기 위함)
+
+* DriverManagerDataSource: DataSource와 DriverManager 둘다 사용할 수 있도록 스프링이 구현
+    DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+    Connection con1 = dataSource.getConnection();
+    -> 설정과 사용이 분리되어 있다.
+
+
+*스프링 AOP ( 스프링 부트가 자동등록)
+    > 어드바이저: BeanFactoryTransactionAttributeSourceAdvisor
+    > 포인트컷: TransactionAttributeSourcePointcut
+    > 어드바이스: TransactionInterceptor
+
+    설정
+    spring.datasource.url=jdbc:h2:tcp://localhost/~/test
+    spring.datasource.username=sa
+    spring.datasource.password=
